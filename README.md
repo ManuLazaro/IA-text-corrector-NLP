@@ -33,7 +33,7 @@ El programa necesita "material" de lectura para poder aprender patrones del leng
 - Desde los archivos **locales** guardados en `data/`.
 - Ampliado automáticamente con un **scraper**, que visita algunas páginas web y añade texto nuevo al corpus si detecta que está desactualizado (más de 7 días).
 
-** Limpiar y preparar el texto**
+# ** Limpiar y preparar el texto**
 Se quitan símbolos raros, etiquetas HTML, mayúsculas, etc., dejando solo palabras "limpias" en español.
 
 ** Trocear el texto en palabras (tokenización)**
