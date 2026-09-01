@@ -27,7 +27,7 @@ Tiene dos formas de usarse:
 
 El programa sigue estos pasos, en orden:
 
-** Conseguir el texto (el corpus) **
+**Conseguir el texto (el corpuus)**
 El programa necesita "material" de lectura para poder aprender patrones del lenguaje. Este texto puede venir de tres sitios:
 - Desde la nube (**Azure**), si hay una conexión configurada.
 - Desde los archivos **locales** guardados en `data/`.
