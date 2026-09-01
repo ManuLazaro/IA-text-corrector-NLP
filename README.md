@@ -76,7 +76,7 @@ También existe la opción de generar una **frase completamente aleatoria** a pa
 
 ![Primera captura](./Ejemplos/Captura%20de%20pantalla%202026-09-01%20183224.png)
 ![Escribimos una o mas palabras](./Ejemplos/Captura%20de%20pantalla%202026-09-01%20183245.png)
-![Seguimos escribiendo](./Ejemplos/Captura%20de%20pantalla%202026-09-01%2018349.png)
+![Seguimos escribiendo](./Ejemplos/Captura%20de%20pantalla%202026-09-01%20183349.png)
 ![Resultado final](./Ejemplos/Captura%20de%20pantalla%202026-09-01%20183403.png)
 
 ---
