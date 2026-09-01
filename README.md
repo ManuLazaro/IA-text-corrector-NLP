@@ -21,7 +21,7 @@ Más allá de las librerías concretas, este proyecto pone en práctica dos bloq
 
 ---
 
-## 🛠️ Tecnologías y librerías utilizadas
+## 🛠️ Librerías utilizadas
 
 | Librería | Para qué se usa |
 |---|---|
@@ -32,38 +32,11 @@ Más allá de las librerías concretas, este proyecto pone en práctica dos bloq
 | `azure-storage-blob` | Conectarse a la nube de Microsoft Azure para descargar el corpus |
 | `python-dotenv` | Leer variables de configuración sensibles (claves, rutas) desde un archivo `.env` sin exponerlas en el código |
 
-> El proyecto también usa librerías propias de Python que no requieren instalación aparte:
-> - **`re`** (expresiones regulares) → es la que realmente se encarga de **limpiar el texto**: quita etiquetas HTML, símbolos raros y espacios sobrantes antes de trabajar con él.
+> El proyecto también usa librerías propias de Python
+> - **`re`** (expresiones regulares) 
 > - **`collections`** → para contar palabras y organizar las sugerencias por frecuencia.
 > - **`random`** → para elegir sugerencias de forma variada y generar frases aleatorias.
 >
-> 💡 *Nota: no se usa `pandas` en este proyecto — toda la limpieza y organización del texto se hace con `re` y estructuras nativas de Python (listas, diccionarios). Si en el futuro se añade `pandas` para tratar el corpus como tabla de datos, se puede sumar aquí.*
-
----
-
-## 📂 Estructura del proyecto
-
-```
-PrimeraPractica_IA/
-│
-├── data/                       # Corpus de texto (la "materia prima" del asistente)
-│   ├── hacker.txt              # Corpus original
-│   ├── hacker_corpus_extra.txt # Corpus adicional obtenido por scraping
-│   └── hacker_total.txt        # Corpus combinado (original + extra)
-│
-├── src/
-│   ├── main.py         # Punto de entrada: ejecuta todo el flujo
-│   ├── config.py       # Configuración general del proyecto (rutas, ajustes)
-│   ├── corpus.py       # Carga, limpieza y tokenización del texto
-│   ├── asistente.py    # Lógica de sugerencias y generación de frases
-│   ├── scraper.py      # Descarga texto de internet para ampliar el corpus
-│   ├── app.py          # Interfaz visual con Streamlit
-│   └── prueba.py       # Archivo de pruebas
-│
-├── .env_example         # Ejemplo de variables de entorno necesarias
-├── requirements.txt      # Lista de librerías necesarias para instalar el proyecto
-└── README.md
-```
 
 ---
 
@@ -72,7 +45,7 @@ PrimeraPractica_IA/
 El programa sigue estos pasos, en orden:
 
 **1️⃣ Conseguir el texto (el corpus)**
-El programa necesita "material" de lectura para poder aprender patrones del lenguaje. Este texto puede venir de tres sitios posibles:
+El programa necesita "material" de lectura para poder aprender patrones del lenguaje. Este texto puede venir de tres sitios:
 - Desde **Azure** (la nube), si hay una conexión configurada.
 - Desde los archivos **locales** guardados en `data/`.
 - Ampliado automáticamente con un **scraper**, que visita algunas páginas web y añade texto nuevo al corpus si detecta que está desactualizado (más de X días).
@@ -105,11 +78,3 @@ También existe la opción de generar una **frase completamente aleatoria** a pa
 
 ---
 
-## ✅ Resumen
-
-Este proyecto demuestra el uso de:
-- Python aplicado a procesamiento de lenguaje natural (NLP) básico
-- Modelos estadísticos simples de texto (n-gramas)
-- Web scraping responsable
-- Conexión con servicios en la nube (Azure)
-- Creación de una interfaz visual sencilla con Streamlit
