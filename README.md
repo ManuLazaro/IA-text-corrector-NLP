@@ -23,30 +23,30 @@ Tiene dos formas de usarse:
 
 ---
 
-## 🔄 **¿Cómo funciona?** (flujo del programa)
+# 🔄 **¿Cómo funciona?** (flujo del programa)
 
 El programa sigue estos pasos, en orden:
 
-**Conseguir el texto (el corpuus)**
+## Conseguir el texto (el corpuus)
 El programa necesita "material" de lectura para poder aprender patrones del lenguaje. Este texto puede venir de tres sitios:
 - Desde la nube (**Azure**), si hay una conexión configurada.
 - Desde los archivos **locales** guardados en `data/`.
 - Ampliado automáticamente con un **scraper**, que visita algunas páginas web y añade texto nuevo al corpus si detecta que está desactualizado (más de 7 días).
 
-# ** Limpiar y preparar el texto**
+## Limpiar y preparar el texto
 Se quitan símbolos raros, etiquetas HTML, mayúsculas, etc., dejando solo palabras "limpias" en español.
 
-** Trocear el texto en palabras (tokenización)**
+## Trocear el texto en palabras (tokenización
 El texto limpio se separa en palabras individuales, listas para ser analizadas.
 
-** Construir los diccionarios de predicción**
+## Construir los diccionarios de predicción
 Se generan dos diccionarios que guardan qué palabras suelen ir después de otras:
 - **Bigramas**: predicen la siguiente palabra mirando solo **la última palabra** escrita.
 - **Trigramas**: predicen la siguiente palabra mirando **las últimas dos palabras**, siendo más precisos.
 
 Si los trigramas no encuentran una sugerencia, el programa "da un paso atrás" y prueba con bigramas, para no dejar al usuario sin opciones.
 
-** Interactuar con el usuario**
+## Interactuar con el usuario
 El usuario escribe una o dos palabras, el programa consulta los diccionarios y devuelve varias sugerencias para continuar la frase. Esto se puede hacer:
 - Por consola (`sugeridor_autodetect`)
 - O de forma visual con botones clicables en Streamlit (`app.py`)
