@@ -1,0 +1,97 @@
+1. Bibliotecas
+
+Python
+
+Muy fuerte en bibliotecas para análisis de datos, machine learning, desarrollo web, automatización, etc.
+
+Ejemplos populares:
+
+Pandas, NumPy, SciPy para análisis numérico y manipulación de datos.
+
+Scikit-learn, TensorFlow, PyTorch para machine learning y deep learning.
+
+Matplotlib, Seaborn para visualización.
+
+Versatilidad: usado tanto en ciencia de datos como en desarrollo general.
+
+R
+
+Enfocado principalmente en estadísticas y análisis de datos.
+
+Excelente para análisis estadístico avanzado y visualización.
+
+Bibliotecas clave:
+
+ggplot2 para gráficos.
+
+dplyr, tidyr para manipulación de datos.
+
+caret para machine learning.
+
+Muy usado en la academia y la investigación estadística.
+
+Java
+
+Más orientado a desarrollo de software robusto, sistemas grandes y aplicaciones empresariales.
+
+Bibliotecas para big data: Apache Hadoop, Spark (aunque Spark tiene APIs para Python y R también).
+
+Para machine learning hay menos opciones nativas comparadas con Python, pero existen: Weka, Deeplearning4j.
+
+No tan centrado en análisis exploratorio o estadística.
+
+2. Rendimiento
+
+Java
+
+Generalmente el más rápido debido a que es un lenguaje compilado a bytecode y ejecutado en la JVM con optimizaciones just-in-time (JIT).
+
+Mejor para aplicaciones donde el rendimiento es crítico y el procesamiento de datos es a gran escala.
+
+Python
+
+Es interpretado, por lo que suele ser más lento que Java.
+
+Sin embargo, muchas bibliotecas usan código en C/C++ detrás (NumPy, TensorFlow), lo que mejora notablemente el rendimiento en tareas numéricas y machine learning.
+
+Para procesamiento puro, Python puede ser más lento que Java, pero en ciencia de datos es muy eficiente gracias a sus extensiones.
+
+R
+
+También interpretado y generalmente más lento que Python y Java para tareas generales.
+
+Optimizado para cálculos estadísticos, pero en operaciones muy grandes o complejas puede ser menos eficiente.
+
+Puede usar paquetes que llaman código en C/C++ para acelerar cálculos.
+
+3. Soporte de la Comunidad
+
+Python
+
+Comunidad enorme y muy activa, en crecimiento constante.
+
+Muchísima documentación, tutoriales, foros, cursos y librerías actualizadas.
+
+Gran soporte para principiantes y profesionales.
+
+R
+
+Comunidad sólida especialmente en estadística, bioestadística, econometría y academia.
+
+Menos generalista que Python, pero con recursos muy buenos en su nicho.
+
+Mucho soporte para estadísticos y científicos sociales.
+
+Java
+
+Comunidad muy grande y madura.
+
+Soporte robusto para desarrollo empresarial, aplicaciones móviles (Android), y sistemas grandes.
+
+Menos enfocado en ciencia de datos, por lo que menos recursos en esa área específica, pero excelente en software engineering.
+
+Resumen
+Aspecto	Python	R	Java
+Bibliotecas	Amplias y variadas, machine learning, ciencia de datos	Excelente para estadísticas y visualización	Fuertes en big data y aplicaciones empresariales
+Rendimiento	Moderado, optimizado con extensiones en C/C++	Moderado, optimizado para estadísticas	Alto, JVM con optimización JIT
+Comunidad	Muy grande y diversa	Fuerte en estadística y academia	Grande, madura en desarrollo software
