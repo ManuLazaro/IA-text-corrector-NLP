@@ -1,23 +1,25 @@
 # src/app.py
 import streamlit as st
+import plotly.express as px
 from collections import Counter
 from config import STOPWORDS
-from corpus import cargar_corpus, preprocesar_texto, tokenizar, construir_diccionario
+from corpus import cargar_corpus, preprocesar_texto, tokenizar, construir_diccionario, contar_frecuencias
 
 # ============================
 # Inicialización del modelo
 # ============================
 @st.cache_resource
 def inicializar_modelo():
-    """Carga y prepara diccionarios de bigramas y trigramas."""
+    """Carga y prepara diccionarios de bigramas y trigramas, y la tabla de frecuencias."""
     texto = cargar_corpus()
     texto = preprocesar_texto(texto)
     tokens = tokenizar(texto)
     dic2 = construir_diccionario(tokens, n=2)
     dic3 = construir_diccionario(tokens, n=3)
-    return dic2, dic3
+    df_frecuencias = contar_frecuencias(tokens)
+    return dic2, dic3, df_frecuencias
 
-dic2, dic3 = inicializar_modelo()
+dic2, dic3, df_frecuencias = inicializar_modelo()
 
 # ============================
 # Inicialización de session state
@@ -177,7 +179,7 @@ html, body, [data-testid="stAppViewContainer"] {
 # ============================
 # Cabecera
 # ============================
-st.markdown('<div class="app-title"> Asistente de Escritura</div>', unsafe_allow_html=True)
+st.markdown('<div class="app-title">🧠 Asistente de Escritura</div>', unsafe_allow_html=True)
 st.markdown(
     '<div class="app-subtitle">Escribe una o dos palabras y deja que el corpus te sugiera cómo continuar.</div>',
     unsafe_allow_html=True,
@@ -197,6 +199,28 @@ with st.sidebar:
     st.markdown("---")
     st.markdown("### Estado")
     st.metric("Palabras en la frase", len(st.session_state["secuencia"]))
+
+    st.markdown("---")
+    st.markdown("### Palabras más usadas en el corpus")
+    fig = px.bar(
+        df_frecuencias.head(10),
+        x="frecuencia",
+        y="palabra",
+        orientation="h",
+    )
+    fig.update_traces(marker_color="#E8A54B")
+    fig.update_layout(
+        paper_bgcolor="rgba(0,0,0,0)",
+        plot_bgcolor="rgba(0,0,0,0)",
+        font_color="#ECEAE4",
+        margin=dict(l=0, r=0, t=10, b=0),
+        height=280,
+        showlegend=False,
+        xaxis_title=None,
+        yaxis_title=None,
+    )
+    fig.update_yaxes(autorange="reversed")
+    st.plotly_chart(fig, width="stretch", config={"displayModeBar": False})
 
 # ============================
 # Lógica de sugerencias (sin cambios respecto al modelo)
@@ -312,17 +336,17 @@ else:
 with st.container(key="control_row"):
     c1, c2, c3 = st.columns(3)
     with c1:
-        if st.button("Deshacer", disabled=not st.session_state["secuencia"]):
+        if st.button("↩️ Deshacer", disabled=not st.session_state["secuencia"]):
             if st.session_state["secuencia"]:
                 st.session_state["secuencia"].pop()
             st.rerun()
     with c2:
-        if st.button("Nueva frase", disabled=not st.session_state["secuencia"]):
+        if st.button("🔄 Nueva frase", disabled=not st.session_state["secuencia"]):
             st.session_state["secuencia"].clear()
             st.session_state["ultima_sugerencia"].clear()
             st.rerun()
     with c3:
-        if st.button("Terminar"):
+        if st.button("✅ Terminar"):
             st.session_state["secuencia"].clear()
             st.session_state["ultima_sugerencia"].clear()
             st.success("Sesión terminada. Recarga la página para empezar de nuevo.")

@@ -1,5 +1,5 @@
 import random
-import matplotlib.pyplot as plt
+import plotly.express as px
 from collections import Counter
 
 #* imports locales
@@ -33,19 +33,23 @@ texto = preprocesar_texto(texto)
 tokens = tokenizar(texto)
 
 
-# 2️⃣ Análisis de las frecuencias de las palabras
+# 2️⃣ Análisis de las frecuencias de las palabras (con pandas + plotly)
 def mostrar_frecuencias(tokens, top=20):
-    """Cuenta las palabras más comunes y muestra un gráfico."""
-    frecuencia = contar_frecuencias(tokens)
-    palabras_comunes = frecuencia.most_common(top)
-    print("Palabras más comunes:", palabras_comunes)
+    """Cuenta las palabras más comunes y muestra un gráfico interactivo."""
+    df_frecuencias = contar_frecuencias(tokens)
+    df_top = df_frecuencias.head(top)
 
-    palabras, counts = zip(*palabras_comunes)
-    plt.figure(figsize=(12, 6))
-    plt.bar(palabras, counts)
-    plt.xticks(rotation=45)
-    plt.title("Palabras más frecuentes (≥2 letras, incluyendo acentos)")
-    plt.show()
+    print("Palabras más comunes:")
+    print(df_top.to_string(index=False))
+
+    fig = px.bar(
+        df_top,
+        x="palabra",
+        y="frecuencia",
+        title="Palabras más frecuentes (≥2 letras, incluyendo acentos)",
+    )
+    fig.update_layout(xaxis_tickangle=-45)
+    fig.show()
 
 mostrar_frecuencias(tokens)
 

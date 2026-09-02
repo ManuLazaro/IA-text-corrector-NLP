@@ -1,6 +1,9 @@
 # src/corpus.py
 import os
 import re
+import pandas as pd
+import nltk
+from nltk.tokenize import word_tokenize
 from collections import defaultdict, Counter
 from config import DATA_PATHS
 from azure.storage.blob import BlobServiceClient
@@ -11,6 +14,25 @@ from dotenv import load_dotenv
 #* Se encarga de leer, limpiar, tokenizar y analizar el corpus.
 #* Ahora puede cargar desde Azure Blob Storage si hay conexión.
 #* ========================================================
+
+
+# ==============================================================
+# !0️⃣ Recursos de NLTK
+# Descarga (solo la primera vez) lo necesario para tokenizar.
+# ==============================================================
+def _asegurar_recursos_nltk():
+    """Comprueba que los recursos de NLTK están disponibles y los descarga si faltan."""
+    recursos = [
+        ("tokenizers/punkt", "punkt"),
+        ("tokenizers/punkt_tab", "punkt_tab"),
+    ]
+    for ruta, paquete in recursos:
+        try:
+            nltk.data.find(ruta)
+        except LookupError:
+            nltk.download(paquete, quiet=True)
+
+_asegurar_recursos_nltk()
 
 
 # ============================================================== 
@@ -74,11 +96,15 @@ def cargar_corpus():
 
 
 # ==============
-# !3️⃣ Tokenización
+# !3️⃣ Tokenización (con NLTK)
 # ==============
 def tokenizar(texto):
-    """Tokeniza el texto respetando tildes y letras españolas."""
-    return re.findall(r'\b[a-záéíóúüñ]{2,}\b', texto)
+    """
+    Tokeniza el texto con NLTK y se queda solo con palabras en español
+    (con tildes, ñ, sin números ni signos) de 2 o más letras.
+    """
+    tokens_brutos = word_tokenize(texto, language="spanish")
+    return [t for t in tokens_brutos if re.fullmatch(r'[a-záéíóúüñ]{2,}', t)]
 
 
 # =========================
@@ -95,8 +121,13 @@ def construir_diccionario(tokens, n=2):
 
 
 # ==============================================================
-# !5️⃣ Función de análisis de frecuencias 
-# Devuelve el contador de palabras.
+# !5️⃣ Función de análisis de frecuencias (con pandas)
+# Devuelve una tabla con cada palabra y cuántas veces aparece,
+# ordenada de más a menos frecuente.
 # ==============================================================
 def contar_frecuencias(tokens):
-    return Counter(tokens)
+    """Cuenta las palabras del corpus y las devuelve como DataFrame de pandas."""
+    contador = Counter(tokens)
+    df = pd.DataFrame(contador.items(), columns=["palabra", "frecuencia"])
+    df = df.sort_values(by="frecuencia", ascending=False).reset_index(drop=True)
+    return df

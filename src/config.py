@@ -3,10 +3,15 @@
 #* GUARDA LAS CONSTANTES DE TODO EL PROYECTO
 #* =========================================
 
-STOPWORDS = {
-    "de", "la", "que", "el", "en", "y", "a", "los", "se", "del", "las",
-    "un", "una", "por", "con", "para", "su", "es", "al", "lo"
-}
+import nltk
+from nltk.corpus import stopwords
+
+try:
+    nltk.data.find("corpora/stopwords")
+except LookupError:
+    nltk.download("stopwords", quiet=True)
+
+STOPWORDS = set(stopwords.words("spanish"))
 
 DATA_PATHS = {
     "original": "data/hacker.txt",

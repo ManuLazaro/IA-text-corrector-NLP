@@ -1,4 +1,5 @@
 import random
+import numpy as np
 from collections import Counter
 from config import STOPWORDS, PENALIZACION_STOPWORDS
 #* ==================================================================
@@ -8,31 +9,30 @@ from config import STOPWORDS, PENALIZACION_STOPWORDS
 #* =================================================================
 
 # ====================================================================================
-# !Función: penalizadora de stopwords comunes
+# !Función: penalizadora de stopwords comunes (con numpy)
 # Esto lo que hace es penalizar la frecuencias con la que aparecen las stopwords que hemos guardado
 # El objetivo es que salgan MENOS, pero que sigan saliendo
 # ==============================================================================
 def elegir_ponderado_penalizado(lista_palabras):
-    contador = Counter(lista_palabras) 
-    total = sum(contador.values())
+    contador = Counter(lista_palabras)
+    palabras = list(contador.keys())
 
     # Si todas son stopwords, no penalizamos (para no romper la gramática)
     if all(pal in STOPWORDS for pal in contador):
-        penalizador = {p: 1.0 for p in contador}
+        pesos = np.array([contador[p] for p in palabras], dtype=float)
     else:
         # Si hay mezcla, reducimos el peso de las stopwords (p.ej. multiplicando por 0.4)
-        penalizador = {p: (PENALIZACION_STOPWORDS if p in STOPWORDS else 1.0) for p in contador}
+        pesos = np.array(
+            [contador[p] * (PENALIZACION_STOPWORDS if p in STOPWORDS else 1.0) for p in palabras],
+            dtype=float,
+        )
 
-    # Creamos una lista ponderada aplicando la penalización
-    ponderados = []
-    for palabra, freq in contador.items():
-        peso = freq * penalizador[palabra]
-        ponderados.extend([palabra] * int(peso))
-
-    if not ponderados:
-        # por si la lista esta vacia
+    if pesos.sum() == 0:
+        # por si acaso los pesos se anulan entre sí
         return random.choice(lista_palabras)
-    return random.choice(ponderados)
+
+    probabilidades = pesos / pesos.sum()
+    return str(np.random.choice(palabras, p=probabilidades))
 
 # ==================================
 # ! Generador de frase aleatoria 
