@@ -117,7 +117,10 @@ También existe la opción de generar una **frase completamente aleatoria** a pa
 
 ## <img src="https://api.iconify.design/lucide:image.svg?color=%230284c7" height="20" style="vertical-align: -4px;" /> Ejemplo de uso
 
-*(Aquí irán las capturas de pantalla mostrando la aplicación en funcionamiento)*
+![Primera captura](./Ejemplos/Captura%20de%20pantalla%202026-09-01%20183224.png)
+![Escribimos una o mas palabras](./Ejemplos/Captura%20de%20pantalla%202026-09-01%20183245.png)
+![Seguimos escribiendo](./Ejemplos/Captura%20de%20pantalla%202026-09-01%20183349.png)
+![Resultado final](./Ejemplos/Captura%20de%20pantalla%202026-09-01%20183403.png)
 
 ---
 
